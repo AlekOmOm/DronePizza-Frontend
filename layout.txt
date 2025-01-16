@@ -1,0 +1,30 @@
+DronePizza-Frontend/
+│
+├── .idea/
+├── css/
+│   └── style.css
+├── img/
+│   └── .gitkeep
+├── js/
+│   ├── vendor/
+│   ├── api-services.js
+│   ├── app.js
+│   └── main.js
+├── node_modules/
+├── .editorconfig
+├── .gitattributes
+├── .gitignore
+├── 404.html
+├── favicon.ico
+├── icon.png
+├── icon.svg
+├── index.html
+├── LICENSE.txt
+├── package.json
+├── package-lock.json
+├── readme.md
+├── robots.txt
+├── site.webmanifest
+├── webpack.common.js
+├── webpack.config.dev.js
+└── webpack.config.prod.js
