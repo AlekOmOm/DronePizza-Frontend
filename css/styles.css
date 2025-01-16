@@ -97,3 +97,52 @@ h1 {
 .finish-delivery-btn:hover {
     opacity: 0.9;
 }
+
+/* Deliverly List styles */
+
+.delivery-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.delivery-id {
+  font-weight: bold;
+}
+
+.delivery-status {
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.delivery-status.waiting {
+  background-color: var(--secondary-color);
+  color: black;
+}
+
+.delivery-status.assigned {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.delivery-time {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.delivery-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.error-message {
+  color: var(--danger-color);
+  padding: 1rem;
+  text-align: center;
+  background: white;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
