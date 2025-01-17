@@ -120,7 +120,6 @@ const DeliveryService = {
     const encodedSerialNumber = encodeURIComponent(droneSerialNumber);
 
     const url = `${DELIVERIES_ENDPOINT}/schedule?deliveryId=${deliveryId}&droneSerialNumber=${encodedSerialNumber}`;
-    console.log('Request URL:', url);
 
     try {
       const response = await fetch(url, {

@@ -18,11 +18,15 @@ class DronePizzaApp {
         const button = document.getElementById('addDroneBtn');
         button.disabled = true;
 
+        console.log('Adding drone...');
+
         try {
             const response = await DroneService.addDrone();
             let serialNumber = response.serialNumber.slice(0, 20).split('-')[0];
-            showNotification('New drone added successfully!\nnumber: ' + serialNumber + '...');
-            await this.droneList.setNewDrone(response.serialNumber);
+            showNotification('New drone added successfully! \n number: ' + serialNumber + '...');
+
+            console.log('New drone added:', response);
+
             await this.updateLists();
         } catch (error) {
             showNotification(error.message, 'error');
@@ -36,15 +40,16 @@ class DronePizzaApp {
         const button = document.getElementById('simulateOrderBtn');
         button.disabled = true;
 
+        console.log('Simulating order...');
+
         try {
             const randomPizzaId = Math.floor(Math.random() * 5) + 1;
             let response = await DeliveryService.addDelivery(randomPizzaId);
 
-            console.log('Response:', response);
-
-
             // Start the animation
             await this.deliveryAnimation.startAnimation();
+
+            console.log('New order created:', response);
 
             showNotification('New order created successfully!');
             await this.updateLists();
