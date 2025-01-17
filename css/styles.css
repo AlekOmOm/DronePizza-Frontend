@@ -19,11 +19,33 @@ body {
     background-color: var(--background-color);
 }
 
+.system-title {
+    color: black;
+    padding: 1rem;
+    text-align: center;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
 }
+
+/* header */
+
+.actions-and-status {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+
+}
+/*statusIndicator id*/
+
+.statusIndicator {
+  border-radius: 4px;
+  padding-left: 55vh;
+}
+
 
 /* Global styles */
 
@@ -38,10 +60,6 @@ body {
 
     /* center items horizontally */
     justify-content: center;
-
-
-
-
 }
 
 .delivery-list-container {
@@ -75,7 +93,6 @@ h1 {
 .actions {
     display: flex;
     gap: 1rem;
-    margin-bottom: 2rem;
 }
 
 .btn {
@@ -88,13 +105,13 @@ h1 {
 }
 
 #addDroneBtn {
-    background-color: var(--primary-color);
+    background-color: steelblue;
     color: white;
 }
 
 #simulateOrderBtn {
-    background-color: var(--secondary-color);
-    color: black;
+    background-color: steelblue;
+    color: white;
 }
 
 .delivery-list {
@@ -278,4 +295,87 @@ h1 {
 .notification.fade-out {
   opacity: 0;
   transform: translateX(100%); /* slide out to right */
+}
+
+
+/* Animation Styling */
+/* Add this to your css/styles.css */
+
+.simulation-animation {
+
+  overflow: hidden; /* Prevent content from showing during collapse */
+}
+
+.animation-container {
+  position: relative;
+  height: 200px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  margin: 20px auto;
+  max-width: 800px;
+  transition: all 0.5s ease-in-out;
+  opacity: 1;
+}
+
+/* Collapsed state */
+.animation-container.collapsed {
+  height: 0;
+  margin: 0 auto;
+  opacity: 0;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  opacity: 0;
+  transition: all 1s ease-in-out;
+}
+
+.icon svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.icon-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.pizza {
+  left: 40px;
+}
+
+.drone {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.customer {
+  right: 40px;
+}
+
+/* Animation classes */
+.show {
+  opacity: 1;
+}
+
+.drone-to-pizza {
+  left: 100px;
+}
+
+.drone-to-customer {
+  left: calc(100% - 100px);
+}
+
+.status-text {
+  text-align: center;
+  margin: 16px 0;
+  height: 20px;
+  color: #374151;
+  transition: opacity 0.3s ease-in-out;
 }

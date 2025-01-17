@@ -9,17 +9,26 @@
 <body>
     <div class="container">
         <header>
-            <h1>DronePizza Delivery System</h1>
-            <div class="actions">
-                <button id="addDroneBtn" class="btn">Add New Drone</button>
-                <button id="simulateOrderBtn" class="btn">Simulate New Order</button>
-            </div>
+            <h1 class="system-title">DronePizza Delivery System</h1>
 
-            <div id="statusIndicator">
-                <a href="./js/__tests__/integration-test-runner.html" class="status online">Test Server status</a>
+            <div class="actions-and-status">
+              <div class="actions">
+                  <button id="addDroneBtn" class="btn">Add New Drone</button>
+                  <button id="simulateOrderBtn" class="btn">Simulate New Order</button>
+              </div>
+
+              <div class="statusIndicator">
+                  <a href="./js/__tests__/integration-test-runner.html" class="status online">Test Server status</a>
+              </div>
             </div>
 
         </header>
+
+        <div class = "simulation-animation">
+            /* Simulation animation will be populated here */
+
+        </div>
+
 
         <div id="notificationContainer" class="notification-container"></div>
 
@@ -32,6 +41,7 @@
 
             -->
             <div class="main-containers">
+
               <div class="delivery-list-container">
                 <h2>Active Deliveries</h2>
                 <ul id="deliveryList" class="delivery-list">

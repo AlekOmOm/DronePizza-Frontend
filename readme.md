@@ -15,6 +15,8 @@ core focus:
 - Buttons work
 - Demo can be completed (of delivery simulation)
 
+[tasks-to-do.md](tasks-for-assignment)
+
 ## Documentation
 - [Architecture Overview](architecture.md)
 - [Development Guide](development-guide.md)

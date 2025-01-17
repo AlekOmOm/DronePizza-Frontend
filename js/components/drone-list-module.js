@@ -27,7 +27,6 @@ import {DeliveryService, DroneService} from '../services/api-services.js';
 import { showNotification } from "../utils.js";
 
 export class DroneList {
-  newDroneSerialNumber = null;
 
   constructor(containerId) {
     this.container = document.getElementById(containerId);
@@ -40,16 +39,11 @@ export class DroneList {
     this.startPolling();
   }
 
-  async setNewDrone(serialNumber) {
-    this.newDroneSerialNumber = serialNumber;
-  }
-
   async updateList() {
     try {
       const drones = await DroneService.getAllDrones();
 
       // Sort by status enums DroneStatus = I_DRIFT, UDE_AF_DRIFT, UDFASET
-      // I_DRIFT = in operation first, UDE_AF_DRIFT = out of operation second, UDFASET = retired last
       const drones_operational = drones.filter(drone => drone.status === 'I_DRIFT');
       const drones_out_of_operation = drones.filter(drone => drone.status === 'UDE_AF_DRIFT');
       const drones_retired = drones.filter(drone => drone.status === 'UDFASET');
@@ -62,15 +56,6 @@ export class DroneList {
           }
           return acc;
         }, []);
-
-      // show 'new' sign at the drone that was just added
-      if (this.newDroneSerialNumber) {
-        const newDrone = this.drones.find(drone => drone.serialNumber === this.newDroneSerialNumber);
-        if (newDrone) {
-          newDrone.isNew = true;
-          this.newDroneSerialNumber = null;
-        }
-      }
 
       this.render();
     } catch (error) {
@@ -100,17 +85,13 @@ export class DroneList {
         .slice(0, 20)
         .split('-')[0];
       const status = drone.status === 'I_DRIFT' ? 'In operation' : drone.status === 'UDE_AF_DRIFT' ? 'Out of operation' : 'Retired';
-      const station = drone.station ? drone.station.name : 'N/A';
-      const isNew = drone.isNew ? 'new' : '';
-      const deliveries = drone.deliveries != null ? drone.deliveries.length : 0;
-
+      const station = drone.station ? drone.station.id : 'N/A';
 
       li.innerHTML = `
                   <div class="drone-info">
-                      <span class="drone-serial-number ${isNew}">Drone #${serialNumber}</span>
+                      <span class="drone-serial-number">Drone #${serialNumber}</span>
                       <span class="drone-status">${status}</span>
                       <span class="drone-station">Station: ${station}</span>
-                      <span class="drone-deliveries">Deliveries: ${deliveries}</span>
                   </div>
               `;
 
@@ -129,9 +110,6 @@ export class DroneList {
   startPolling() {
     setInterval(() => this.updateList(), 60000);
   }
-
-  // --------------------- Operations ---------------------
-
 
 
 }
