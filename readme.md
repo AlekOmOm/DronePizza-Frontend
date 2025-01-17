@@ -1,5 +1,4 @@
 
-
 # DronePizza Frontend
 
 ## Description
@@ -10,6 +9,11 @@ Frontend implementation for DronePizza delivery service
 - Automated drone assignment
 - Order simulation capabilities
 - Auto-refresh functionality
+
+core focus:
+- List for deliveries works
+- Buttons work
+- Demo can be completed (of delivery simulation)
 
 ## Documentation
 - [Architecture Overview](architecture.md)

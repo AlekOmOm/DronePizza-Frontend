@@ -1,5 +1,6 @@
 // js/deliveryList.js
 import { DeliveryService } from '../services/api-services.js';
+import { showNotification } from "../utils.js";
 
 /*
  implementation
@@ -41,40 +42,76 @@ export class DeliveryList {
     }
 
     render() {
-        this.container.innerHTML = ''; // Clear current content
+      this.container.innerHTML = '';
 
-        if (this.deliveries.length === 0) {
-            this.container.innerHTML = `
-                <div class="delivery-item">
-                    <span>No active deliveries</span>
-                </div>
-            `;
-            return;
+      if (this.deliveries.length === 0) {
+        this.container.innerHTML = `
+                  <li class="delivery-item">
+                      <span>No active deliveries</span>
+                  </li>
+              `;
+        return;
+      }
+
+      this.deliveries.forEach(delivery => {
+        const li = document.createElement('li');
+        li.className = 'delivery-item';
+
+        const status = delivery.serialNumber ? 'Assigned to drone' : 'Waiting for drone';
+        const statusClass = delivery.serialNumber ? 'assigned' : 'waiting';
+        const expectedTime = new Date(delivery.expectedDeliveryTime).toLocaleTimeString();
+
+        li.innerHTML = `
+                  <div class="delivery-info">
+                      <span class="delivery-id">Order #${delivery.id}</span>
+                      <span class="delivery-status ${statusClass}">${status}</span>
+                      <span class="delivery-time">Expected: ${expectedTime}</span>
+                  </div>
+                  ${!delivery.serialNumber ? `
+                      <div class="delivery-actions">
+                          <button class="assign-drone-btn" data-delivery-id="${delivery.id}">
+                              Assign Drone
+                          </button>
+                      </div>
+                  ` : ''}
+              `;
+
+        if (!delivery.serialNumber) {
+          const assignButton = li.querySelector('.assign-drone-btn');
+          assignButton.addEventListener('click', () => this.handleAssignDrone(delivery.id));
         }
 
-        this.deliveries.forEach(delivery => {
-            const deliveryElement = this.createDeliveryElement(delivery);
-            this.container.appendChild(deliveryElement);
-        });
+        this.container.appendChild(li);
+      });
     }
+
+    renderError(message) {
+      this.container.innerHTML = `
+              <div class="error-message">
+                  ${message}
+              </div>
+          `;
+    }
+
+    // --------------------- Operations ---------------------
 
     createDeliveryElement(delivery) {
         const li = document.createElement('li');
         li.className = 'delivery-item';
 
-        const status = delivery.droneId ? 'Assigned to drone' : 'Waiting for drone';
+        const status = delivery.serialNumber ? 'Assigned to drone' : 'Waiting for drone';
         const expectedTime = new Date(delivery.expectedDeliveryTime).toLocaleTimeString();
 
         li.innerHTML = `
             <div class="delivery-info">
                 <span class="delivery-id">Order #${delivery.id}</span>
-                <span class="delivery-status ${delivery.droneId ? 'assigned' : 'waiting'}">
+                <span class="delivery-status ${delivery.serialNumber ? 'assigned' : 'waiting'}">
                     ${status}
                 </span>
                 <span class="delivery-time">Expected: ${expectedTime}</span>
             </div>
             <div class="delivery-actions">
-                ${!delivery.droneId ? `
+                ${!delivery.serialNumber ? `
                     <button class="assign-drone-btn" data-delivery-id="${delivery.id}">
                         Assign Drone
                     </button>
@@ -103,13 +140,14 @@ export class DeliveryList {
     }
 
     async handleAssignDrone(deliveryId) {
-        try {
-            await DeliveryService.scheduleDelivery(deliveryId);
-            await this.updateList();
-        } catch (error) {
-            console.error('Error assigning drone:', error);
-            alert('Failed to assign drone');
-        }
+      try {
+        await DeliveryService.scheduleDelivery(deliveryId);
+        showNotification('Drone assigned successfully');
+        await this.updateList();
+      } catch (error) {
+        showNotification('Failed to assign drone: ' + error.message, 'error');
+        console.error('Error assigning drone:', error);
+      }
     }
 
     async handleFinishDelivery(deliveryId) {
@@ -122,13 +160,6 @@ export class DeliveryList {
         }
     }
 
-    renderError(message) {
-        this.container.innerHTML = `
-            <div class="error-message">
-                ${message}
-            </div>
-        `;
-    }
 
     startPolling() {
 

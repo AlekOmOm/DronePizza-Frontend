@@ -14,13 +14,39 @@
                 <button id="addDroneBtn" class="btn">Add New Drone</button>
                 <button id="simulateOrderBtn" class="btn">Simulate New Order</button>
             </div>
+
+            <div id="statusIndicator">
+                <a href="./js/__tests__/integration-test-runner.html" class="status online">Test Server status</a>
+            </div>
+
         </header>
 
+        <div id="notificationContainer" class="notification-container"></div>
+
         <main>
-            <h2>Active Deliveries</h2>
-            <ul id="deliveryList" class="delivery-list">
-                <!-- Deliveries will be populated here -->
-            </ul>
+            <!--
+            info:
+              - delivery list of active deliveries
+              - drone list of drones
+                - sorted by status (I_DRIFT, UDE_AF_DRIFT, UDFASET)
+
+            -->
+            <div class="main-containers">
+              <div class="delivery-list-container">
+                <h2>Active Deliveries</h2>
+                <ul id="deliveryList" class="delivery-list">
+                  <!-- Deliveries will be populated here -->
+                </ul>
+              </div>
+
+              <div class="drone-list-container">
+                <h2>Active Drones</h2>
+                <ul id="droneList" class="drone-list">
+                  <!-- Drones will be populated here -->
+                </ul>
+              </div>
+            </div>
+
         </main>
     </div>
 

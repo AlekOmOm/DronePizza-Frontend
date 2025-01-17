@@ -2,6 +2,8 @@
   "name": "dronepizza-frontend",
   "version": "1.0.0",
   "description": "Frontend for DronePizza delivery system",
+  "main": "js/main.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch"
@@ -34,6 +36,7 @@
     "webpack-merge": "^5.10.0"
   },
   "dependencies": {
+    "jsdom": "^26.0.0",
     "node-fetch": "^3.3.2"
   }
 }
