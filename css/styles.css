@@ -64,7 +64,7 @@ body {
 
 
 header {
-    margin-bottom: 2rem;
+
 }
 
 h1 {
@@ -143,6 +143,7 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding-right: 1vh;
 }
 
 .delivery-id {
@@ -184,6 +185,64 @@ h1 {
   border-radius: 4px;
   margin: 1rem 0;
 }
+
+/* Drone List styles */
+
+/*
+    <span class="drone-serial-number ${isNew}">Drone #${serialNumber}</span>
+                      <span class="drone-status">${status}</span>
+                      <span class="drone-station">Station: ${station}</span>
+                      <span class="drone-deliveries">Deliveries: ${deliveries}</span>
+ */
+
+.drone-list {
+  list-style: none;
+}
+
+.drone-item {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drone-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.drone-serial-number {
+  font-weight: bold;
+}
+
+.drone-status {
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+  background-color: #dff0d8;
+}
+
+.drone-station {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.drone-deliveries {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+
+
+
+
 
 /* styling for notifactions */
 

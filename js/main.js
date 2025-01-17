@@ -20,7 +20,8 @@ class DronePizzaApp {
       const response = await DroneService.addDrone();
 
       let serialNumber = response.serialNumber
-        .slice(0, 20);
+        .slice(0, 20)
+        .split('-')[0];
 
       showNotification('New drone added successfully!'+'\n number: '+serialNumber+'...');
       await this.droneList.setNewDrone(response.serialNumber);

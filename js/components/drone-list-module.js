@@ -79,7 +79,6 @@ export class DroneList {
     }
   }
 
-
   render() {
     this.container.innerHTML = '';
 
@@ -96,11 +95,14 @@ export class DroneList {
       const li = document.createElement('li');
       li.className = 'drone-item';
 
-      const serialNumber = drone.serialNumber.slice(0, 20);
+      // slice serialNumber when hits '-' character
+      const serialNumber = drone.serialNumber
+        .slice(0, 20)
+        .split('-')[0];
       const status = drone.status === 'I_DRIFT' ? 'In operation' : drone.status === 'UDE_AF_DRIFT' ? 'Out of operation' : 'Retired';
       const station = drone.station ? drone.station.name : 'N/A';
       const isNew = drone.isNew ? 'new' : '';
-      const deliveries = drone.deliveries.length;
+      const deliveries = drone.deliveries != null ? drone.deliveries.length : 0;
 
 
       li.innerHTML = `
@@ -111,11 +113,6 @@ export class DroneList {
                       <span class="drone-deliveries">Deliveries: ${deliveries}</span>
                   </div>
               `;
-
-      if (!drone.droneId) {
-        const assignButton = li.querySelector('.assign-drone-btn');
-        assignButton.addEventListener('click', () => this.handleAssignDrone(delivery.id));
-      }
 
       this.container.appendChild(li);
     });
